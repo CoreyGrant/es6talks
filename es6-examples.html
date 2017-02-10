@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body{
+				padding: 20px;
+				background-color: blanchedalmond;
+			}
+			input, textarea{
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-xs-6 col-xs-offset-3">
+				<div id="people"></div>
+			</div>
+		</div>
+		<form class="row">
+			<div class="col-xs-6 col-xs-offset-3">
+				<label for="name">Name</label>
+				<input id="name" class="form-control"/>
+				<label for="height">Height</label>
+				<input id="height" type="number" class="form-control"/>
+				<label for="age">Age</label>
+				<input id="age" type="number" class="form-control"/>
+				<label for="favouritethings">Favourite Things</label>
+				<textarea id="favouritethings" class="form-control"></textarea>
+				<button type="button" id="addperson" class="btn btn-sm btn-primary pull-right">Add Person</button>
+				<div class="row">
+					<div class="col-xs-12">
+						<label for="peoplefilter">Filter</label>
+						<input id="peoplefilter" class="form-control" placeholder="prop1:val1,prop2:val2"/>
+					</div>
+				</div>				
+				<button id="writepeople" type="button" class="btn btn-sm btn-primary pull-right">Update people</button>
+				<button id="submit" type="button" class="btn btn-sm btn-primary pull-right">Submit</button>
+			</div>
+		</form>
+		
+		<script src="es6-examples-fixed.js"></script>
+	</body>
+</html>
