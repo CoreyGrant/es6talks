@@ -1,0 +1,280 @@
+<html>
+<head>
+	<title>Javascript/ES6</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<style>
+		input{
+			width: auto;
+		}
+		html{
+			background-color: beige;
+			margin-left: 10px;
+			font-size: 16px;
+		}
+		body{
+			width: 800px;
+		}
+		p, h2, h3, h4, li{
+			color: rgba(0,0,0,0.84);
+			font-family: 'Roboto', sans-serif
+		}
+		div.toggleable > h4{
+			cursor: pointer;
+		}
+		#contents{
+			position: fixed;
+			right: 0;
+			top: 0;
+			margin: 10px;
+			padding: 10px;
+			background-color: rgba(0,0,0,0.14);
+			font-size: 14px;
+		}
+		#color-picker{
+			width: 133px;
+			display: flex;
+			align-items: center;
+			align-content: stretch;
+		}
+		ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body onload="PR.prettyPrint()">
+<h2>Talk format:</h2>
+<ol>
+	<li>Javascript and ES6</li>
+	<li>Typescript</li>
+	<li>Angular2</li>
+</ol>
+<h2>Javascript</h2>
+<p>Dynamically typed prototype-based language</p>
+<p>Prototypes allow almost unrestricted dynamic object hierarchies</p>
+
+<h3>ES5</h3>
+
+<div class="toggleable">
+	<h4>Function.prototype.bind</h4>
+	<pre class="prettyprint"><code>
+		function add(a, b){
+			return a + b;
+		}
+
+		const add2 = add.bind(null, 2);
+	</code></pre>
+	<pre class="prettyprint"><code>
+		class A{
+			constructor(){ this.value = 1;}
+			add(b){
+				return this.value + b;
+			}
+		}
+		const a = new A();
+		// Using a as this
+		const add1 = a.add.bind(a);
+		// Using a different value of this
+		const add7 = a.add.bind({value: 7});
+	</code></pre>
+	<p>Very useful because of the ability to set the "this" variable</p>
+	<h4>Function.prototype.call/apply</h4>
+	<pre class="prettyprint"><code>
+		function addStuff(a, b){
+			return this + a + b
+		};
+
+		addStuff.call(4, 3, 2) // 9
+		addStuff.apply(3, [2, 1]) // 6
+	</code></pre>
+</div>
+<h4>List functions</h4>
+<p>map - Select</p>
+<p>reduce - Aggregate</p>
+<p>filter - Where</p>
+<p>find - FirstOrDefault</p>
+<p>forEach - List&lt;&gt;.ForEach</p>
+<p>and more...</p>
+<div class="toggleable">
+	<h4>Object functions</h4>
+	<pre class="prettyprint"><code>
+		const myObj = {
+			key1: "1",
+			key2: "2",
+			key3: "3"
+		};
+		const objKeys = Object.keys(myObj); // ['key1', 'key2', 'key3']
+	</code></pre>
+	<pre class="prettyprint"><code>
+		// ES6 only
+		const objA = {a: 1};
+		const objB = {b: 2};
+		const objAB = {a : 3, b : 3}
+
+		Object.assign({}, objA, objB, objAB);
+		// {a: 3, b: 3}
+
+		Object.assign({}, objA, objAB, objB);
+		// {a: 3, b: 2}
+	</code></pre>
+</div>
+
+<h3>ES6</h3>
+
+<div class="toggleable">
+	<h4>Arrow functions</h4>
+	<pre class="prettyprint">
+	<code>
+		function myFunc(a, b){
+			return a + b*b;
+		}
+
+		const myFuncSame = (a, b) => a + b*b;
+	</code>
+	</pre>
+	<p>Main difference being that an arrow function will NOT re-bind "this", instead using the same "this" as where it was declared</p>
+</div>
+<div class="toggleable">
+	<h4>Classes</h4>
+	<p>Look very similar to normal OO clases, but still use proto-based inheritance</p>
+	<pre class="prettyprint">
+	<code>
+		class MyClass1{
+			constructor(cat){
+				this.cat = cat;
+			}
+		}
+
+		class MyClass2 extends MyClass1{
+			constructor(cat, dog){
+				super(cat);
+				this.dog = dog;
+			}
+		}
+	</code>
+	</pre>
+</div>
+<div class="toggleable">
+	<h4>String templating</h4>
+	<pre class="prettyprint">
+	<code>
+		const a = "something";
+		const b = { key1: "other" };
+		const c = `${a} or ${b.key1}`; // "something or other"
+	</code>
+	</pre>
+</div>
+<div class="toggleable">
+	<h4>Destructuring</h4>
+	<pre class="prettyprint">
+	<code>
+		// Array destructuring
+		let a, c;
+		[a, ,c] = [1,2,3]; // a === 1, c === 3
+
+		// Object destructuring, where we want to use the property names as variable names
+		const {a, c} = { a: "a", b: "b", c: "c"}; // a === "a", c === "c"
+
+		// Same as above but different property/variable names
+		const {myPropName: a} = {myPropName: "val", somethingelse: "qwer"} // a === "val";
+
+		// Can be used in functions
+		const myFunc = function({myPropName: a}){
+			// can use a, value of the incomming object's myPropName
+		}
+	</code>
+	</pre>
+	<p>Fail-soft (undefined), can use defaults</p>
+</div>
+<h4>Default arguments</h4>
+<p>Pretty much same as C#, except not limited to compile time constants (so can be function calls, anything)</p>
+<div class="toggleable">
+	<h4>Rest + Spread</h4>
+	<p>Effectively unrolls the array</p>
+	<pre class="prettyprint">
+	<code>
+		function a(x, ...y){
+			// y is an array, like params in C#. Better than 'arguments'.
+		}
+
+		function b(x, y, z){
+			return x + y + z;
+		}
+		b(...[1, 2, 3]); // 6
+	</code>
+	</pre>
+	<p>Object Rest/Spread is also a thing, but not fully supported (ES7). More on that in Typescript...</p>
+</div>
+<h4>Let + Const</h4>
+<p>Let is block scoped, can be reassigned</p>
+<p>Const is block scoped, cannot be reassigned (but CAN be mutated)</p>
+<h4>Map + Set</h4>
+<p>Sets are duplicate free collections</p>
+<p>Maps are objects where the keys can be anything, including object references (c# dict)</p>
+<h4>Others</h4>
+<p>Lots more APIs, on Number (isInteger, isNaN), Math</p>
+<p>Promises</p>
+<p>Reflection, Proxies and Symbols</p>
+<p>Tail calls</p>
+<p>Modules</p>
+<p>Generators and Iterators</p>
+<p>ES7 (or ES2017) should be out soon&trade;
+<div id="contents" style="padding-top: 30px;">
+	<button id="hide-contents" style="position: absolute; top: 5px; right: 5px;">x</button>
+	<button style="float: right; width: 100%; margin-bottom: 10px;" id="toggle-all">Toggle All</button>
+	<div id="color-picker">
+	<label>r<input id="r" value="245" type="number" min="0" max="255"/></label>
+	<label>g<input id="g" value="245" type="number" min="0" max="255"/></label>
+	<label>b<input id="b" value="220" type="number" min="0" max="255"/></label>
+	</div>
+	<ul>
+
+	</ul>
+</div>
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script>
+	$('.toggleable').each(function(){
+		var $this = $(this);
+		var $h4 = $this.find('h4');
+		var $pre = $this.find('pre');
+		$h4.on('click', function(){
+			$pre.toggle();
+		});
+	});
+	const ids = [];
+	$('h4').each(function(){
+		const id = $(this).text().replace(/ /g, "-");
+		ids.push(id);
+		$(this).attr('id', id);
+	})
+	ids.forEach(x => {
+		$('#contents>ul').append(`<li><a href='#${x}'>${x.replace(/-/g, ' ')}</a></li>`);
+	});
+	window.open = true;
+	$('#toggle-all').on('click', function(){
+		const eles = $('.toggleable').find('pre');
+		if(window.open){
+			eles.hide();
+		} else {
+			eles.show();
+		}
+		window.open = !window.open;
+	});
+	$('#r, #g, #b').on('input', function(){
+		$('html').css({
+			"background-color": `rgb(${$('#r').val()}, ${$('#g').val()}, ${$('#b').val()})`
+		});
+	})
+	$('#r').trigger('input');
+	$('#hide-contents').on('click', function(){
+		$('ul, #color-picker, #toggle-all').toggle();
+	})
+</script>
+
+</body>
+</html>
